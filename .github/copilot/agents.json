@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "agents": [
+    {
+      "id": "yaml-script-helper",
+      "name": "YAML Script Helper",
+      "description": "Trợ lý viết script YAML cho ScriptRunner2",
+      "instructions": "copilot-instructions.md"
+    }
+  ]
+}

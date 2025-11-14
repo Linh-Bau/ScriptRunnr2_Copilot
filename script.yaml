@@ -1,0 +1,58 @@
+# Script for P400 - VERIFY - DEMO
+# Kiểm tra đầu vào trạm và lấy CSN
+
+script:
+  test_environments:
+    - &p400_environment
+      downloads: ~
+
+  test_configurations:
+    - &p400_configuration
+      flags:
+        - skip_upload_defect_code
+      
+      script_information:
+        station_name: "VERIFY STATION"
+        description: "P400 DEMO - CHECK INPUT AND GET CSN"
+      
+      script_configuration:
+        general:
+          nothing: ~
+        
+        fixture_configuration:
+          - nothing: ~
+
+  test_sequences:
+    - &p400_test_sequence
+      test_items:
+        - name: CHECK_MBS_NO
+          steps:
+            - do: mes.CHECK_MBS_NO
+              with: ~
+
+        - name: GET_AND_PRINT_CSN
+          steps:
+            - do: mes.get_csn
+              with: ~
+              on_success:
+                - do: logger.info
+                  with:
+                    message: "$ ✓ Lấy CSN thành công: {$context MES[csn]}"
+                - do: logger.info
+                  with:
+                    message: "$ MBS: {$context input_str} | CSN: {$context MES[csn]} | Slot: {$context slot_id}"
+                - do: return.PASS
+                  with: ~
+              on_fail:
+                - do: logger.info
+                  with:
+                    message: "✗ Lấy CSN thất bại"
+                - do: return.FAIL
+                  with:
+                    error_code: GET_CSN_FAIL
+
+  test_targets:
+    - model_id: "DEMO"
+      environment: *p400_environment
+      test_config: *p400_configuration
+      test_sequence: *p400_test_sequence
