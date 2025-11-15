@@ -1,0 +1,31 @@
+# YAML SCRIPT: 
+# phiên bản hướng dẫn test_configurations
+
+script:
+  test_environments: ~
+  test_configurations: # thiết lập config  cho script
+    - &t650_configuration
+      flags:
+        - enable_camera_window
+        - skip_upload_defect_code
+      script_information: 
+        station_name: "CAMERA STATION" 
+        description: "T650P CHECK INFOMATION"
+
+      script_configuration:
+        general:
+          txt_model: 650m 
+          txt_android_build: 3357
+          txt_secured_os_core: 015
+          txt_android_version: 810
+          txt_part_number: 410-32-EUC-6
+
+        fixture_configuration: 
+          - nothing: ~
+          
+  test_sequences: ~
+  test_targets: 
+    - &t650c_target
+      test_configuration: *t650_environment
+      test_sequence: ~
+      test_environment: ~

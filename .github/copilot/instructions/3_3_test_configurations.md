@@ -1,56 +1,16 @@
-## hướng dẫn config test_configuration trong script.yaml
-
-## 📄 Ví dụ tham khảo (`script.yaml`)
-```yaml
-test_configurations: # thiết lập config  cho script
-    - &t650_configuration
-      flags:
-        - enable_camera_window
-        - skip_upload_defect_code
-      script_information: 
-        station_name: "CAMERA STATION" 
-        description: "T650P CHECK INFOMATION"
-
-      script_configuration:
-        general:
-          txt_model: 650m 
-          txt_android_build: 3357
-          txt_secured_os_core: 015
-          txt_android_version: 810
-          txt_part_number: 410-32-EUC-6
-
-        fixture_configuration: 
-          - nothing: ~
-
-    - &VN6500ABER01_configuration
-      flags:
-        - enable_camera_window
-        - skip_upload_defect_code
-      script_information: 
-        station_name: "CAMERA STATION" 
-        description: "T650P CHECK INFOMATION"
-
-      script_configuration:
-        general:
-          txt_model: 650m 
-          txt_android_build: 3357
-          txt_secured_os_core: 015
-          txt_android_version: 810
-          txt_part_number: 410-32-EUC-6
-
-        fixture_configuration: 
-          - nothing: ~    
-``` 
+## Hướng dẫn config test_configuration trong script.yaml
+- tham khảo ruler chung về định dạng YAML: [1_format-ruler.md](./1_format-ruler.md)
+- ví dụ: Tham khảo [example_setup_environment.yaml](../../examples/example_setup_environment.yaml)
 
 
-## Giải thích các trường trong `test_configurations`:
+## 1 - Giải thích các trường trong `test_configurations`:
 
 - `test_configurations`:  
   - Định nghĩa các cấu hình test, bao gồm các cờ (flags) để kiểm soát chương trình và thông tin cấu hình cụ thể cho từng trạm (station).
-  - `flags`: Danh sách các cờ để điều chỉnh hành vi của script.
+  - `flags`: Danh sách các cờ để điều chỉnh hành vi của `ScriptRunner2`.
       - `enable_camera_window`: Chỉ dùng cho trạm sử dụng camera vision.
-      - `skip_upload_defect_code`: Bỏ qua việc upload mã lỗi lên MES.
-      - `fixture_control`: Dùng để gửi mã FIXTURE_CODE đến MES.
+      - `skip_upload_defect_code`: Bỏ qua việc upload mã lỗi lên `MES`.
+      - `fixture_control`: Dùng để gửi mã `FIXTURE_CODE` lên `MES`.
   
   - `script_information`: Thông tin mô tả về script.
     - `station_name`: Tên trạm test. Được hiển thị trên chương trình.
@@ -73,7 +33,6 @@ test_configurations: # thiết lập config  cho script
       - Tên biến là tùy ý do người dùng đặt. Tuy nhiên, nên đặt tên có ý nghĩa để dễ hiểu, tên để theo `lower_case`.
       - Nếu ở `general`, tên biến trùng với tên biến ở `fixture_configuration`, khi lấy giá trị sẽ ưu tiên lấy giá trị từ `fixture_configuration`. Lưu ý: không nên đặt tên biến trùng nhau như này.
 
-  
 ## Hướng dẫn
 - tên biến trong `script_configuration` có thể được sử dụng trong các bước (steps) của `test_sequence`.
 - Các biến trong `general` áp dụng chung cho tất cả các fixture.

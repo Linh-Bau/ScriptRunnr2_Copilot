@@ -2,9 +2,9 @@
   "version": 1,
   "agents": [
     {
-      "id": "yaml-script-helper",
-      "name": "YAML Script Helper",
-      "description": "Trợ lý viết script YAML cho ScriptRunner2",
+      "id": "Trợ lý trả lời câu hỏi",
+      "name": "Trợ lý trả lời câu hỏi",
+      "description": "Trợ lý này giúp trả lời các câu hỏi liên quan đến ScriptRunnr2 và cung cấp hướng dẫn sử dụng.",
       "instructions": "copilot-instructions.md"
     }
   ]
