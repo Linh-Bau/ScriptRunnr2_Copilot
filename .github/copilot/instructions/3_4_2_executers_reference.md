@@ -255,17 +255,31 @@ Lấy danh sách MAC address từ MBS number.
   on_fail: ~
 ```
 
+### 3.5 - `pms` - AUTO IT PMS WiNDOW
+Kiểm soát và mở chương trình `PMS_Simulation_Window_V1.09.exe`.
+Chương trình này đi kèm với `PCBA_tests.exe`.
+Phiên bản chương trình:
+- Tên file: `PMS_Simulation_Window_V1.09.exe`
+- 
 
-### 5. `cam` - Camera và OCR  
+#### 3.5.1 `pms.AUTO` 
+```yaml
+do: pms.AUTO
+  with:
+    working_path: C:\\T650C_SA_K81DL_TOOL20230929\\V1.21.2\PMS_Simulation_Window_V1.09
+    exe_name: PMS_Simulation_Window_V1.09.exe
+    bt_mac: ~
+    wifi_mac: ~
+    eth_mac: 123456789012 #$context MES[mac]
+  on_success: ~
+  on_fail: ~
+```
+**with**:
+- `working_path` (string, bắt buộc): Đường dẫn thư mục chứa `PCBA_tests.exe`.
+- `exe_name` (string, bắt buộc): Tên file thực thi PMS. 
 
-TODO: Cập nhật chi tiết executer camera và OCR
-Đang cập nhật ...
+
+
 ---
-
-### 6. `func` - Hàm tiện ích
-TODO: Cập nhật chi tiết executer func
-Đang cập nhật ... 
-
-
 ## 4 - ⚠️ Liên hệ
 Nếu cần thêm executer hoặc method mới, vui lòng liên hệ **SW ENG** để bổ sung vào hệ thống.
