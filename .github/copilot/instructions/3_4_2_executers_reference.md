@@ -46,6 +46,8 @@ Xử lý giá trị biến with ở runtime khi biến with: tham khảo [3_4_1_
 #### 3.1.1 `logger.info`
 Ghi thông tin log vào file và hiển thị trên giao diện.
 
+
+
 **Tham số:**
 - `message` (string, bắt buộc): Nội dung cần ghi log.
 
@@ -64,31 +66,18 @@ Ghi thông tin log vào file và hiển thị trên giao diện.
     message: "Model: {$txt_model}, Build: {$txt_android_build}"
 ```
 
+**Sử dụng khi**:
+- Cần debug thông tin, thêm log mô tả.
+- Đa phần trường hợp sẽ không cần dùng đến, vì thông tin mà `ScriptRunner2` đã khá đầy đủ. Gợi ý khi người dùng yêu cầu.
+
 **Lưu ý:**
 - Hỗ trợ biến: `{$variable_name}`
 - Log tự động có timestamp
 
 ###  3.2 - `return` - Điều khiển luồng
+Sử dụng để kết thúc test item với kết quả PASS/FAIL hoặc tiếp tục bước tiếp theo.
 
-####  3.2.1 `return.continue`
-Tiếp tục thực hiện step tiếp theo.
-
-**Tham số:** Không có (`~`)
-
-**Trả về:** `true` (luôn thành công)
-
-**Ví dụ:**
-```yaml
-- do: mes.get_csn
-  with: ~
-  on_success:
-    - do: return.continue
-      with: ~
-```
-
----
-
-####  3.2.2 `return.PASS`
+####  3.2.1 `return.PASS`
 Kết thúc test item với kết quả **PASS**.
 
 **Tham số:** Không có (`~`)
@@ -101,12 +90,14 @@ Kết thúc test item với kết quả **PASS**.
   with: ~
 ```
 
+**Sử dụng khi**:
+- Kết thúc test item ngay khi đạt điều kiện thành công.
+
 **Lưu ý:** 
 - Method name phải viết **HOA**: `return.PASS` (không phải `return.pass`)
-- Dùng cho bước cuối cùng hoặc khi muốn kết thúc test item sớm với kết quả thành công
 - Không cần `on_success`/`on_fail` vì method này throw exception để kết thúc
 
-####  3.2.3 `return.FAIL`
+####  3.232 `return.FAIL`
 Kết thúc test item với kết quả **FAIL**.
 
 **Tham số:**
@@ -126,6 +117,9 @@ Kết thúc test item với kết quả **FAIL**.
 - do: return.FAIL
   with: ~
 ```
+
+**Sử dụng khi**: 
+- Kết thúc test item ngay khi phát hiện lỗi.
 
 **Lưu ý:** 
 - Method name phải viết **HOA**: `return.FAIL` (không phải `return.fail`)
@@ -159,10 +153,15 @@ Kiểm tra biểu thức điều kiện boolean.
     - do: return.PASS
 ```
 
+
 **Cú pháp điều kiện:**
 - `$if {$variable} == value`: So sánh bằng
 - `$if {$variable} != value`: So sánh khác
 
+
+**Sử dụng khi**:  
+- Cần so sánh 1 giá trị biến với giá trị cụ thể để quyết định luồng thực hiện. Hoặc trả về kết quả PASS/FAIL.
+- Sử dụng  với: Kiểm tra giá trị của `battery`, ...
 
 ###  3.4 - `mes` - Tương tác MES API
 
@@ -192,6 +191,9 @@ Kiểm tra MBS number và tự động return PASS/FAIL.
       with: ~
 ```
 
+**Sử  dụng khi**:
+- Luôn luôn ở bước đầu tiên của test item để kiểm tra MBS number.  Bước này là bắt buộc với mọi trạm  test thông thường.
+
 **Lưu ý:** 
 - Method HOA, không cần `on_success`/`on_fail`
 
@@ -212,6 +214,9 @@ Lấy CSN (Customer Serial Number) từ MBS number.
   on_success: ~
   on_fail: ~
 ```
+**Sử dụng khi**:  
+- Cần lấy CSN từ MBS để sử dụng trong các bước tiếp theo.
+
 
 ####  3.4.3 `mes.GET_CONTROL_TABLE`
 Lấy control table (bảng kiểm soát phiên bản) từ MES.
@@ -229,6 +234,10 @@ Lấy control table (bảng kiểm soát phiên bản) từ MES.
   on_success: ~
   on_fail: ~
 ```
+
+***Sử dụng khi**:
+-  Cần lấy thông tin `biên bản quản khống`, Các thông tin `OS`, `VERSION` ... từ MES để sử dụng trong các bước tiếp theo.
+
 
 **Lưu ý:** Sau khi gọi, có thể truy cập các giá trị như `{$context MES[ANDROID_BUILD]}`, `{$context MES[PART_NUMBER]}`, etc.
 
@@ -255,12 +264,17 @@ Lấy danh sách MAC address từ MBS number.
   on_fail: ~
 ```
 
-### 3.5 - `pms` - AUTO IT PMS WiNDOW
+**Sử dụng khi**:
+- Cần lấy <b>ETH/WIFI/BT MAC</b> mới từ MES. Để ghi vào sản phẩm.
+
+### 3.5 - `pms` & `mt` - AUTO IT PMS WINDOW & MANUFACTORING TOOL
 Kiểm soát và mở chương trình `PMS_Simulation_Window_V1.09.exe`.
 Chương trình này đi kèm với `PCBA_tests.exe`.
 Phiên bản chương trình:
-- Tên file: `PMS_Simulation_Window_V1.09.exe`
-- 
+- Tên file (PMS WINDOW): `PMS_Simulation_Window_V1.09.exe`
+- Tên file (MANUFACTORING TOOL): `PCBA_tests.exe` phiên bản `v1.21.2`.
+Yêu cầu:
+- người sử dụng cần kiểm tra các phiên bản chương trình, nếu phiên bản chương trình không đúng, có thể không chạy được.
 
 #### 3.5.1 `pms.AUTO` 
 ```yaml
@@ -277,6 +291,96 @@ do: pms.AUTO
 **with**:
 - `working_path` (string, bắt buộc): Đường dẫn thư mục chứa `PCBA_tests.exe`.
 - `exe_name` (string, bắt buộc): Tên file thực thi PMS. 
+- `bt_mac` (string): BT MAC address để ghi vào sản phẩm. Có thể để trống nếu k cần ghi vào.
+- `wifi_mac` (string): WIFI MAC address để ghi vào sản phẩm. Có thể để trống nếu k cần ghi vào.
+- `eth_mac` (string): ETH MAC address để ghi vào sản phẩm. Có thể để trống nếu k cần ghi vào.
+  
+**Sử dụng khi**:
+- Sử dụng kèm với `PCBA_tests.exe`. Chương trình này luôn cần được mở trước khi chạy `MANUFACTORING TOOL`.
+
+#### 3.5.2 `mt.AUTO`
+```yaml
+- name: MT_AUTO_TEST
+  steps: 
+    - do: mt.AUTO
+      with: 
+        working_path: C:\\IAC\\FISFrameworkSystem\\TestTool\\T650P_petro\\V1.21.2
+        exe_name: PCBA_tests.exe
+        ict_sn_01: $context input_str
+        ict_sn_02: 8PEeevenus8386
+      on_success: ~
+      on_fail: ~
+```
+**with**:
+- `working_path` (string, bắt buộc): Đường dẫn thư mục chứa `PCBA_tests.exe`.
+- `exe_name` (string, bắt buộc): Tên file thực thi MANUFACTORING TOOL.
+- `ict_sn_01` (string, bắt buộc): MBS number để nhập vào trường ICT SN 01. Để `~` nếu không sử dụng.  
+- `ict_sn_02` (string, bắt buộc): MBS number để nhập vào trường ICT SN 02. Để `~` nếu không sử dụng.
+- 1 trong 2 trường `ict_sn_01` hoặc `ict_sn_02` phải có giá trị, nếu không chương trình sẽ báo lỗi. Nếu giá trị lấy từ MBSNO thì dùng `$context input_str`.
+
+**Sử dụng khi**:
+- Sử dụng để tự động hóa việc chạy `PCBA_tests.exe` với các tham số cần thiết.
+- Yêu cầu chương trình `PMS_Simulation_Window_V1.09.exe` đã được mở trước đó.
+
+#### 3.5.3 `mt.check_log`
+```yaml
+- do: mt.check_log
+  with: 
+      expect: "ICT PASS"
+  on_success: ~
+  on_fail: 
+    - do: return.FAIL
+      with:
+        error_code: MT_LOG_CHECK_FAIL
+```
+
+**with**:
+- `expect` (string, bắt buộc): Chuỗi ký tự mong đợi xuất hiện trong log. dùng string hoặc `re_{string}` để sử dụng regex. Ví dụ: `re_ICT\s+PASS` để tìm chuỗi `ICT PASS` với khoảng trắng bất kỳ giữa 2 từ.
+
+**Sử dụng khi**:
+- Sử dụng sau khi dùng `mt.AUTO` để kiểm tra log kết quả từ MANUFACTORING TOOL.
+- Nếu log chứa chuỗi `expect`, method trả về `true`, ngược lại trả về `false`.
+
+#### 3.5.4 `mt.check_board_log`
+```yaml
+- do: mt.check_board_log
+  with: 
+      board_id: 01 # 01 hoặc 02
+      expect: any # chuỗi ký tự mong đợi xuất hiện trong log. Dùng string hoặc re_{string} để sử dụng regex.
+  on_success: ~
+  on_fail: 
+    - do: return.FAIL
+      with:
+        error_code: MT_BOARD_LOG_CHECK_FAIL
+```
+
+**with**:
+- `board_id` (string, bắt buộc): ID của board cần kiểm tra, giá trị là `01` hoặc `02`.  
+- `expect` (string, bắt buộc): Chuỗi ký tự mong đợi xuất hiện trong log. dùng string hoặc `re_{string}` để sử dụng regex. Ví dụ: `re_Board\s+01\s+PASS` để tìm chuỗi `Board 01 PASS` với khoảng trắng bất kỳ giữa các từ.
+- **Sử dụng khi**:
+- Sử dụng sau khi dùng `mt.AUTO` để kiểm tra log kết quả từ MANUFACTORING TOOL cho board cụ thể.
+- Nếu log của board chứa chuỗi `expect`, method trả về `true`, ngược lại trả về `false`.
+
+#### 3.5.5 `mt.check_tasklist`
+```yaml
+- do: mt.check_tasklist
+  with: 
+    board_id: 01
+    expect: K81-Firmware,Complete
+  on_success: 
+    - do: return.continue
+  on_fail: 
+    - do: return.FAIL
+      with:
+        error_code: K81-Firmware DOWNLOAD FAILED
+```
+**with**: 
+- `board_id` (string, bắt buộc): ID của board cần kiểm tra, giá trị là `01` hoặc `02`.    
+- `expect` (string, bắt buộc): Chuỗi ký tự mong đợi xuất hiện trong tasklist. Dùng string hoặc `re_{string}` để sử dụng regex. Ví dụ: `re_K81-Firmware,Complete` để tìm chuỗi `K81-Firmware,Complete`.
+- **Sử dụng khi**:
+- Sử dụng sau khi dùng `mt.AUTO` để kiểm tra tasklist từ MANUFACTORING TOOL cho board cụ thể.
+- Nếu tasklist của board chứa chuỗi `expect`, method trả về `true`, ngược lại trả về `false`.
+
 
 
 

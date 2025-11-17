@@ -38,11 +38,12 @@
     - Ví dụ: `message: "Test completed"`, `image_path: "./setup/image/sample.png"`
   - `on_success`: Các bước tiếp theo nếu hành động thành công (tùy chọn).
     - Là một danh sách các steps con.
-    - Nếu không có, chương trình sẽ tiếp tục bước tiếp theo.
+    - Nếu không có (để là null `~`), chương trình sẽ tiếp tục bước tiếp theo.
   
   - `on_fail`: Các bước tiếp theo nếu hành động thất bại (tùy chọn).
     - Là một danh sách các steps con.
     - Thường dùng để log lỗi và return fail với error_code.
+    - Nếu không có (để là null `~`), chương trình sẽ tiếp tục bước tiếp theo.
 
 ## 2 - Hướng dẫn viết test_sequences:
 
@@ -66,10 +67,14 @@ test_sequences:
 
 ### 2.2 - Thứ tự thực hiện:
 - Các test items được thực hiện tuần tự từ trên xuống dưới.
-- Trong mỗi test item, các steps được thực hiện tuần tự.
+- Trong mỗi test item, các `step` được thực hiện tuần tự.
 - Nếu một step return `return.FAIL`, test item kết thúc ngay với kết quả FAIL.
+  
 - Nếu một step return `return.PASS`, test item kết thúc ngay với kết quả PASS.
-- Nếu một step return `return.continue`, chương trình tiếp tục step tiếp theo.
+  
+- nếu `on_success` hoặc `on_fail` là null (`~`), chương trình sẽ tiếp tục `step` tiếp theo trong `test_item`.
+  
+- Nếu đến bước cuối cùng của `step` mà không có lệnh return, chương trình  sẽ báo  lỗi. Vì vậy luôn đảm bảo có lệnh return ở `step` cuối cùng.
 
 ### 2.3 - Sử dụng biến:
 - Cú pháp: `{$variable_name}` để tham chiếu biến từ `script_configuration`.
@@ -80,7 +85,8 @@ test_sequences:
 - Tên test item nên ngắn gọn, rõ ràng, viết HOA.
 - `error_code` ưu tiên viết HOA_GACH_DUOI
 - Mỗi test item nên tập trung vào một nhiệm vụ cụ thể.
-- Sử dụng `return.continue` cho step trung gian, `return.PASS`/`return.FAIL` cho step cuối.
+- ở `on_success` và `on_fail`, nếu không xử lý gì và qua bước tiếp theo. Hãy để là null (`~`). 
+- Trong `on_success` và `on_fail`, Có thể có nhiều bước con. Nhưng viết  script không nên để logic lồng quá sâu, quá phức tạp. Ưu tiên `fast return` nếu có thể thể.
 - Luôn xử lý `on_fail` cho các step quan trọng với `error_code` rõ ràng.
 
 ## 3 - Hệ thống xử lý string trong `test_sequences`:

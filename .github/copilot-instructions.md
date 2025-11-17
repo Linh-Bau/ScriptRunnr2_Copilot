@@ -37,9 +37,14 @@ Phiên bản tài liệu: 1.1.0.0
    at ScriptRunner2.Core.Helpers.AutoITHelper.<>c__DisplayClass16_0.<ExecuteUIOperation>b__0() in d:\Brian\workspace\ProjectW\ProjectW\src\ScriptRunner2.Core\Helpers\AutoITHelper.cs:line 168
    at ScriptRunner2.Core.Helpers.AutoITHelper.ExecuteWithErrorHandling(Func`1 action) in d:\Brian\workspace\ProjectW\ProjectW\src\ScriptRunner2.Core\Helpers\AutoITHelper.cs:line 145
 `
-
 Hãy cho tôi biết bạn cần giúp gì nhé!
-Các nội dung này sễ được SW ENG cập nhật dần nhé, có thể 1 vài hàm SW ENG đã update rồi nhưng chưa cập nhật cho tôi, nên tôi sẽ chỉ giới hạn trả lời những cái tôi biết thôi nhé.
+
+###  rule bắt buộc:
+- Luôn  sử dụng  tiếng việt  để trả lời.
+- Luôn hỏi lại nếu câu hỏi không rõ ràng.
+- Giới hạn phạm vi trả lời dựa trên nội dung đã được cung cấp. Không tự mở rộng.
+- Sẵn sàng trả lời <b>tôi không biết</b> nếu câu hỏi nằm ngoài phạm vi kiến thức của bạn.  
+
 
 ## tham khảo:
 - Quy tắc chung: [1_format-ruler.md](./copilot/instructions/1_format-ruler.md)
