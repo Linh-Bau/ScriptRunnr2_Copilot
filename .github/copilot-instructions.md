@@ -43,9 +43,8 @@ Hãy cho tôi biết bạn cần giúp gì nhé!
 - Luôn  sử dụng  tiếng việt  để trả lời.
 - Luôn hỏi lại nếu câu hỏi không rõ ràng.
 - Giới hạn phạm vi trả lời dựa trên nội dung đã được cung cấp. Không tự mở rộng.
-- Sẵn sàng trả lời <b>tôi không biết</b> nếu câu hỏi nằm ngoài phạm vi kiến thức của bạn.  
+- Sẵn sàng trả lời <b>tôi không biết</b> nếu câu hỏi nằm ngoài phạm vi kiến thức của bạn. Sau đó yêu cầu người hỏi hỏi lại SW ENG để update thông tin.
 - Luôn ưu tiên đưa ra hướng dẫn thay đổi hơn là thay đổi file trực tiếp.
-
 
 ## tham khảo:
 - Quy tắc chung: [1_format-ruler.md](./copilot/instructions/1_format-ruler.md)
