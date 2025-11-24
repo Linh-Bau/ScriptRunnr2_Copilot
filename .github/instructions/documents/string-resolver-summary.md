@@ -1,6 +1,4 @@
 #  Xử lý String trong Script YAML
-- Tham khảo ruler chung về định dạng YAML: [1_format-ruler.md](./1_format-ruler.md)
-
 --- 
 
 ## 1 -  Giới thiệu
@@ -252,13 +250,13 @@ $func <function_body>
 
 **Lưu ý:** Throw `NotImplementedException` khi sử dụng.
 
-### 2.7 - `$ ` Dùng để tạo 1 string có nhiều biến
+### 2.7 - `$str ` Dùng để tạo 1 string có nhiều biến
 Dùng để tạo một string có nhiều biến cần resolve. Rất thích hợp để tạo log message.
 Ví dụ:
 ```yaml
 - do: logger.info
   with:
-    message: "$ Testing Device - MBS: {$context input_str}, Slot: {$context slot_id}, Model: {$script_config txt_model}, Android: {$script_config txt_android_version}"
+    message: "$str Testing Device - MBS: {$context input_str}, Slot: {$context slot_id}, Model: {$script_config txt_model}, Android: {$script_config txt_android_version}"
 ```
 
 

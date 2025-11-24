@@ -1,49 +1,30 @@
-# GitHub Copilot Project Instructions
-
-## 1. Project Summary
-Project   này   
-- <Mô tả ngắn gọn dự án>  
-- <Nhiệm vụ chính của chương trình>  
-- <Ngôn ngữ và công nghệ sử dụng: C#, WPF, YAML, Python, v.v.>  
-
-Copilot should focus only on the context of this project.
-
+# GITHUB COPILOT INSTRUCTIONS
+---
+## 1. Mô tả
+- Hướng dẫn này cung cấp các chỉ dẫn cụ thể để GitHub Copilot hỗ trợ trong việc tạo các trạm test, chỉnh sửa các trạm test trong môi trường nhà máy sản xuất.
 ---
 
-## 2. Code Style Guidelines
-- Follow the coding style of the project.
-- Use clear naming conventions.
-- Avoid unnecessary abstractions.
-- Prefer readable and maintainable code.
-- Keep functions small and focused.
+## 2. Quy tắc chung.
+1. Trả lời câu hỏi bằng <b>TIẾNG VIỆT</b>, ở phần  `thinking` cũng viết bằng <b>TIẾNG VIỆT</b> để tôi có thể theo dõi cụ thể.
+2. Tìm kiểm câu trả lời dựa trên hướng dẫn tôi đưa ra ở phần <b>3. Hướng dẫn trả lời</b>
 
 ---
+## 3. Hướng dẫn trả lời
+Yêu cầu người dùng sự dụng khi bắt đầu sử dụng format theo format theo bên dưới. Dựa theo câu lệnh người dùng đưa ra, thực hiện trả lời theo hướng dẫn của tôi.
+```
+<câu lệnh> - <nội dung>
+```
+### 3.1 hướng dẫn
+Dành cho câu lệnh dạng hướng dẫn, hoặc format không đúng. Hãy đưa ra hướng dẫn cụ thể như bên dưới.
+<b>Sử dụng</b>
+<i> <câu lệnh> - <nội dung câu hỏi>. </i>
+Câu lệnh ở đây có thể là
+      - <b>giải thích script</b> : Đưa ra giải thích chi tiết về một đoạn script. Hoặc file script `yaml`.
+      - <b>viết script</b> : Tương tác sửa `script.yaml` theo yêu cầu.
+      - <b>xử lý lỗi</b> : Hướng dẫn xử lý lỗi trong quá trình chạy chương trình.
 
-## 3. Do / Don’t
-### ✔ Do
-- Generate code only when requested.
-- Use the existing architecture, patterns, and folder structure.
-- Follow MVVM (if dự án dùng MVVM).
-- Use async/await properly.
-- Follow the YAML structure as defined.
-- Use existing helper functions instead of rewriting.
+### 3.2 Giải thích script
+Câu lệnh: <b>script</b> - <i>nội dung.</i>
+Logic trả lời:
+- Tham khảo [YAML SCRIPT INSTRUCTION](./instructions/yaml-script-instructions.md) để đưa ra câu trả lời.
 
-### ❌ Don’t
-- Do NOT propose technologies outside the project (React, Java, Rust…).
-- Do NOT generate entire projects unless asked.
-- Do NOT rewrite code unrelated to the request.
-- Do NOT change architecture unless user asks explicitly.
-
----
-
-## 4. YAML Rule (if project uses YAML)
-When working with `.yaml` test files:
-- Only suggest steps available in `/yaml/steps/*.yaml`.
-- Must follow the exact structure:
-  
-```yaml
-- name: <STEP_NAME>
-  steps:
-    - do: <FUNC_NAME>
-      with:
-         <key>: <value>
